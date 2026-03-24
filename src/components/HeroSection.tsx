@@ -34,7 +34,7 @@ const HeroSection = () => {
         className="absolute left-6 top-1/2 -translate-y-1/2 z-20 hidden xl:block"
       >
         <p className="text-[10px] tracking-[0.5em] uppercase text-gold/30 font-body" style={{ writingMode: "vertical-lr" }}>
-          Established 2010 — Luxury Living
+          NextEPiC Ventures — Premium Real Estate
         </p>
       </motion.div>
 
@@ -52,7 +52,7 @@ const HeroSection = () => {
             <div className="h-px w-12 md:w-20 bg-gradient-to-l from-transparent to-gold/60" />
           </div>
           <p className="font-elegant text-sm md:text-base tracking-[0.5em] uppercase text-champagne/80 font-light">
-            Premium Luxury Real Estate
+            Where Real Estate Meets Vision, Integrity & Results
           </p>
         </motion.div>
 
@@ -63,7 +63,7 @@ const HeroSection = () => {
             transition={{ duration: 1.2, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.9] text-foreground"
           >
-            Find Your
+            NextEPiC
           </motion.h1>
         </div>
         <div className="overflow-hidden mt-2">
@@ -73,8 +73,7 @@ const HeroSection = () => {
             transition={{ duration: 1.2, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
             className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold leading-[0.9]"
           >
-            <span className="text-gradient-gold italic">Dream</span>{" "}
-            <span className="text-foreground">Home</span>
+            <span className="text-gradient-gold italic">Ventures</span>
           </motion.h1>
         </div>
 
@@ -82,17 +81,29 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1.3 }}
-          className="font-elegant text-lg md:text-xl lg:text-2xl text-champagne/60 max-w-2xl mt-8 italic font-light leading-relaxed"
+          className="font-elegant text-lg md:text-xl lg:text-2xl text-champagne/60 max-w-3xl mt-8 italic font-light leading-relaxed"
         >
-          Where extraordinary architecture meets timeless elegance. 
-          Experience properties that redefine luxury living.
+          Your trusted partner for premium residential, commercial, and investment 
+          real estate in Bengaluru and beyond. We combine deep market insight with 
+          discreet, high‑touch service to deliver exceptional outcomes.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 1.6 }}
+          className="font-body text-sm md:text-base text-champagne/40 max-w-2xl mt-6 leading-relaxed"
+        >
+          At NextEPiC Ventures, we craft bespoke real‑estate journeys for individuals, families, 
+          corporates, and NRIs. From luxury homes to prime commercial spaces, we bring clarity, 
+          confidence, and strategic precision to every property decision.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.8, duration: 1 }}
-          className="mt-12 flex items-center gap-8"
+          className="mt-12 flex items-center gap-6"
         >
           <button
             onClick={scrollToAbout}
@@ -100,7 +111,15 @@ const HeroSection = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/10 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             <span className="relative text-xs font-body tracking-[0.3em] uppercase text-primary group-hover:text-gold-light transition-colors">
-              Explore Collection
+              Explore Our Services
+            </span>
+          </button>
+          <button
+            onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
+            className="group relative px-10 py-4 rounded-full bg-primary/90 hover:bg-primary overflow-hidden transition-all duration-500"
+          >
+            <span className="relative text-xs font-body tracking-[0.3em] uppercase text-primary-foreground">
+              Schedule Consultation
             </span>
           </button>
         </motion.div>

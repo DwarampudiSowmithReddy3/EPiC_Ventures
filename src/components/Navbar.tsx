@@ -5,9 +5,9 @@ import { Menu, X } from "lucide-react";
 const navItems = [
   { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Properties", href: "#properties" },
   { label: "Services", href: "#services" },
-  { label: "Agent", href: "#agent" },
+  { label: "Why Us", href: "#why-us" },
+  { label: "Leadership", href: "#leadership" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -19,7 +19,6 @@ const Navbar = () => {
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 80);
-      // Detect active section
       for (const item of [...navItems].reverse()) {
         const el = document.querySelector(item.href);
         if (el) {
@@ -55,14 +54,14 @@ const Navbar = () => {
         {/* Logo */}
         <button onClick={() => handleClick("#hero")} className="flex items-center gap-3 group">
           <div className="relative w-12 h-12 rounded-full border border-gold/40 flex items-center justify-center group-hover:border-gold transition-colors duration-500 gold-border-glow">
-            <span className="text-gradient-gold font-display font-bold text-xl">L</span>
+            <span className="text-gradient-gold font-display font-bold text-lg">NE</span>
             <div className="absolute -inset-1 rounded-full border border-gold/10 animate-pulse-glow" />
           </div>
           <div className="hidden sm:block">
-            <span className="font-display text-foreground text-xl tracking-wide">
-              Your <span className="text-gradient-gold">Logo</span>
+            <span className="font-display text-foreground text-lg tracking-wide">
+              Next<span className="text-gradient-gold">EPiC</span>
             </span>
-            <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-body -mt-0.5">Luxury Estates</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase text-muted-foreground font-body -mt-0.5">Ventures</p>
           </div>
         </button>
 

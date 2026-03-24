@@ -5,10 +5,10 @@ import SectionLabel from "./SectionLabel";
 import OrnamentalDivider from "./OrnamentalDivider";
 
 const stats = [
-  { icon: Building2, value: "500+", label: "Properties Sold", suffix: "" },
-  { icon: Users, value: "1,200+", label: "Happy Clients", suffix: "" },
-  { icon: Award, value: "15+", label: "Years Experience", suffix: "" },
-  { icon: TrendingUp, value: "$2B+", label: "Total Sales", suffix: "" },
+  { icon: Building2, value: "500+", label: "Properties Handled" },
+  { icon: Users, value: "1,200+", label: "Happy Clients" },
+  { icon: Award, value: "15+", label: "Years Experience" },
+  { icon: TrendingUp, value: "₹2B+", label: "Total Transactions" },
 ];
 
 const AboutSection = () => {
@@ -24,7 +24,6 @@ const AboutSection = () => {
         <div className="absolute inset-0 overlay-cinematic" />
       </div>
 
-      {/* Decorative side lines */}
       <div className="absolute top-0 bottom-0 left-12 w-px bg-gradient-to-b from-transparent via-gold/10 to-transparent hidden xl:block" />
       <div className="absolute top-0 bottom-0 right-12 w-px bg-gradient-to-b from-transparent via-gold/10 to-transparent hidden xl:block" />
 
@@ -35,16 +34,15 @@ const AboutSection = () => {
           transition={{ duration: 1 }}
           className="text-center mb-20"
         >
-          <SectionLabel label="About Us" className="justify-center mb-6" />
+          <SectionLabel label="Our Story" className="justify-center mb-6" />
           <h2 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
-            Redefining Luxury<br />
-            <span className="text-gradient-gold italic font-normal">Real Estate</span>
+            About NextEPiC<br />
+            <span className="text-gradient-gold italic font-normal">Ventures</span>
           </h2>
           <OrnamentalDivider className="mt-8" />
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-          {/* Text Column - 3 cols */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -52,18 +50,23 @@ const AboutSection = () => {
             className="lg:col-span-3 space-y-6"
           >
             <p className="font-elegant text-2xl md:text-3xl text-champagne/80 italic leading-relaxed font-light">
-              "We don't just find houses — we curate lifestyles. Every property we represent is a masterpiece of design, comfort, and distinction."
+              "NextEPiC Ventures is a boutique real estate agency built on excellence, discretion, and long‑term value creation."
             </p>
             <div className="h-px w-24 bg-gradient-to-r from-gold/40 to-transparent" />
             <p className="text-muted-foreground font-body leading-loose text-base md:text-lg">
-              With over 15 years of expertise in the luxury real estate market, we specialize in connecting discerning clients with exceptional properties that embody elegance, comfort, and modern sophistication. Our boutique approach ensures every client receives the exclusive, personalized attention they deserve.
+              We specialise in high‑value residential, commercial, and industrial properties across 
+              Bengaluru, with a focus on prime micro‑markets and upcoming growth corridors. Guided 
+              by a vision to be the preferred partner for discerning clients and investors, we blend 
+              market intelligence, ethical practices, and hands‑on execution.
             </p>
             <p className="text-muted-foreground font-body leading-loose text-base md:text-lg">
-              From waterfront estates to penthouse retreats, our portfolio represents the finest in architectural achievement and premium living. We navigate the complexities of high-end real estate so you can focus on what matters — finding the home of your dreams.
+              Our mission is to simplify complex real estate decisions, protect your interests, and 
+              deliver measurable, above‑market outcomes. Whether you're an individual, family, 
+              corporate, or NRI — we bring clarity, confidence, and strategic precision to every 
+              property decision.
             </p>
           </motion.div>
 
-          {/* Stats Column - 2 cols */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
