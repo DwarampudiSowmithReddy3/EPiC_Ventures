@@ -32,34 +32,34 @@ const AboutSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
           <SectionLabel label="Our Story" className="justify-center mb-6" />
-          <h2 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
             About NextEPiC<br />
             <span className="text-gradient-gold italic font-normal">Ventures</span>
           </h2>
-          <OrnamentalDivider className="mt-8" />
+          <OrnamentalDivider className="mt-6 md:mt-8" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="lg:col-span-3 space-y-6"
+            className="lg:col-span-3 space-y-5 sm:space-y-6"
           >
-            <p className="font-elegant text-2xl md:text-3xl text-champagne/80 italic leading-relaxed font-light">
+            <p className="font-elegant text-xl sm:text-2xl md:text-3xl text-champagne/80 italic leading-relaxed font-light">
               "NextEPiC Ventures is a boutique real estate agency built on excellence, discretion, and long‑term value creation."
             </p>
             <div className="h-px w-24 bg-gradient-to-r from-gold/40 to-transparent" />
-            <p className="text-muted-foreground font-body leading-loose text-base md:text-lg">
+            <p className="text-muted-foreground font-body leading-loose text-sm sm:text-base md:text-lg">
               We specialise in high‑value residential, commercial, and industrial properties across 
               Bengaluru, with a focus on prime micro‑markets and upcoming growth corridors. Guided 
               by a vision to be the preferred partner for discerning clients and investors, we blend 
               market intelligence, ethical practices, and hands‑on execution.
             </p>
-            <p className="text-muted-foreground font-body leading-loose text-base md:text-lg">
+            <p className="text-muted-foreground font-body leading-loose text-sm sm:text-base md:text-lg">
               Our mission is to simplify complex real estate decisions, protect your interests, and 
               deliver measurable, above‑market outcomes. Whether you're an individual, family, 
               corporate, or NRI — we bring clarity, confidence, and strategic precision to every 
@@ -71,7 +71,7 @@ const AboutSection = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="lg:col-span-2 grid grid-cols-2 gap-5"
+            className="lg:col-span-2 grid grid-cols-2 gap-3 sm:gap-5"
           >
             {stats.map((stat, i) => (
               <motion.div
@@ -79,13 +79,13 @@ const AboutSection = () => {
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
                 transition={{ duration: 0.6, delay: 0.6 + i * 0.15 }}
-                className="glass-card glass-card-hover rounded-xl p-6 text-center transition-all duration-500 group"
+                className="glass-card glass-card-hover rounded-xl p-4 sm:p-6 text-center transition-all duration-500 group"
               >
-                <div className="w-12 h-12 rounded-full bg-gold/5 border border-gold/15 flex items-center justify-center mx-auto mb-4 group-hover:bg-gold/10 group-hover:border-gold/30 transition-all duration-500">
-                  <stat.icon className="w-5 h-5 text-primary" />
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gold/5 border border-gold/15 flex items-center justify-center mx-auto mb-3 sm:mb-4 group-hover:bg-gold/10 group-hover:border-gold/30 transition-all duration-500">
+                  <stat.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                 </div>
-                <p className="font-display text-3xl md:text-4xl font-bold text-gradient-gold">{stat.value}</p>
-                <p className="text-muted-foreground text-xs font-body mt-2 tracking-wider uppercase">{stat.label}</p>
+                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gradient-gold">{stat.value}</p>
+                <p className="text-muted-foreground text-[10px] sm:text-xs font-body mt-1 sm:mt-2 tracking-wider uppercase">{stat.label}</p>
               </motion.div>
             ))}
           </motion.div>

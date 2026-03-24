@@ -23,45 +23,45 @@ const ContactSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1 }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
           <SectionLabel label="Get In Touch" className="justify-center mb-6" />
-          <h2 className="font-display text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
+          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-foreground leading-tight">
             Connect With<br />
             <span className="text-gradient-gold italic font-normal">NextEPiC Ventures</span>
           </h2>
-          <OrnamentalDivider className="mt-8" />
-          <p className="font-elegant text-lg text-champagne/60 italic mt-6 max-w-2xl mx-auto font-light">
+          <OrnamentalDivider className="mt-6 md:mt-8" />
+          <p className="font-elegant text-base sm:text-lg text-champagne/60 italic mt-4 sm:mt-6 max-w-2xl mx-auto font-light px-2">
             Whether you are exploring a luxury home, commercial space, or investment‑grade property, 
             our team is ready to provide a personalised, high‑level consultation.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-5 gap-12">
+        <div className="grid lg:grid-cols-5 gap-10 lg:gap-12">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2 space-y-6 sm:space-y-8"
           >
-            <p className="font-elegant text-xl text-champagne/70 italic leading-relaxed font-light">
+            <p className="font-elegant text-lg sm:text-xl text-champagne/70 italic leading-relaxed font-light">
               For NRIs, we offer a dedicated process that respects your time, location, and requirements.
             </p>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {[
                 { icon: Mail, label: "Email", value: "info@nextepicventures.com" },
                 { icon: Phone, label: "Call Us", value: "+91 XXXX XXX XXX" },
                 { icon: MapPin, label: "Office", value: "NextEPiC Ventures, Flat No. 235, Mahaveer Calyx Apartment, BTM 4th Stage, Nyanappanahalli, Behind Royal Residency Layout, Bengaluru – 560076, India" },
               ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl border border-gold/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <Icon size={18} className="text-primary" />
+                <div key={label} className="flex items-start gap-3 sm:gap-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl border border-gold/20 flex items-center justify-center shrink-0 mt-0.5">
+                    <Icon size={16} className="text-primary sm:w-[18px] sm:h-[18px]" />
                   </div>
-                  <div>
-                    <p className="text-xs font-body tracking-[0.25em] uppercase text-primary mb-1">{label}</p>
-                    <p className="text-foreground font-body text-sm leading-relaxed">{value}</p>
+                  <div className="min-w-0">
+                    <p className="text-[10px] sm:text-xs font-body tracking-[0.25em] uppercase text-primary mb-1">{label}</p>
+                    <p className="text-foreground font-body text-xs sm:text-sm leading-relaxed break-words">{value}</p>
                   </div>
                 </div>
               ))}
@@ -73,16 +73,16 @@ const ContactSection = () => {
             initial={{ opacity: 0, x: 40 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="lg:col-span-3 glass-card rounded-3xl p-8 md:p-12 space-y-6 gold-border-glow"
+            className="lg:col-span-3 glass-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 space-y-4 sm:space-y-6 gold-border-glow"
             onSubmit={(e) => e.preventDefault()}
           >
-            <div className="grid sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               <div>
                 <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Full Name</label>
                 <input
                   type="text"
                   placeholder="Your Name"
-                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-5 py-4 font-body text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors"
+                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors"
                 />
               </div>
               <div>
@@ -90,17 +90,17 @@ const ContactSection = () => {
                 <input
                   type="email"
                   placeholder="you@example.com"
-                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-5 py-4 font-body text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors"
+                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors"
                 />
               </div>
             </div>
-            <div className="grid sm:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               <div>
                 <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Phone</label>
                 <input
                   type="tel"
                   placeholder="+91 XXXX XXX XXX"
-                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-5 py-4 font-body text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors"
+                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors"
                 />
               </div>
               <div>
@@ -108,7 +108,7 @@ const ContactSection = () => {
                 <select
                   value={propertyType}
                   onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-5 py-4 font-body text-foreground focus:outline-none focus:border-gold/40 transition-colors appearance-none"
+                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3 sm:py-4 font-body text-sm text-foreground focus:outline-none focus:border-gold/40 transition-colors appearance-none"
                 >
                   <option value="" className="bg-charcoal">Select Type</option>
                   <option value="residential" className="bg-charcoal">Residential</option>
@@ -121,18 +121,18 @@ const ContactSection = () => {
             <div>
               <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Your Message</label>
               <textarea
-                rows={5}
+                rows={4}
                 placeholder="How can we assist you with your next premium real estate move?"
-                className="w-full bg-charcoal-light/50 border border-border rounded-xl px-5 py-4 font-body text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors resize-none"
+                className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-gold/40 transition-colors resize-none"
               />
             </div>
             <button
               type="submit"
-              className="group w-full relative overflow-hidden bg-primary text-primary-foreground font-body font-semibold tracking-[0.2em] uppercase text-sm py-5 rounded-xl transition-all duration-500 flex items-center justify-center gap-3"
+              className="group w-full relative overflow-hidden bg-primary text-primary-foreground font-body font-semibold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm py-4 sm:py-5 rounded-xl transition-all duration-500 flex items-center justify-center gap-2 sm:gap-3"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-gold-dark via-gold-light to-gold-dark opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <span className="relative">Schedule a Private Consultation</span>
-              <Send size={16} className="relative" />
+              <Send size={14} className="relative sm:w-4 sm:h-4" />
             </button>
           </motion.form>
         </div>
