@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Luxe Property Portal
 
-TODO: Document your project here
+Premium Real Estate Portal built with React and Tailwind CSS.

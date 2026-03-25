@@ -37,9 +37,7 @@ const AboutSection = () => {
     <section id="about" className="relative overflow-hidden">
       {/* Cinematic video background */}
       <div className="absolute inset-0">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover scale-105">
-          <source src="https://videos.pexels.com/video-files/7578548/7578548-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-        </video>
+        <img src="https://images.unsplash.com/photo-1582407947304-fd86f028f716?auto=format&fit=crop&q=80&w=2560" alt="About Us" className="w-full h-full object-cover scale-105" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--gold)/0.05),transparent_60%)]" />
       </div>

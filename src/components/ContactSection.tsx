@@ -13,9 +13,7 @@ const ContactSection = () => {
     <section id="contact" className="relative overflow-hidden">
       {/* Video background */}
       <div className="absolute inset-0">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover scale-105">
-          <source src="https://videos.pexels.com/video-files/5992078/5992078-uhd_2560_1440_24fps.mp4" type="video/mp4" />
-        </video>
+        <img src="https://images.unsplash.com/photo-1628611225249-6c3c7c689552?auto=format&fit=crop&q=80&w=2560" alt="Contact Us" className="w-full h-full object-cover scale-105" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,hsl(var(--gold)/0.06),transparent_60%)]" />
       </div>

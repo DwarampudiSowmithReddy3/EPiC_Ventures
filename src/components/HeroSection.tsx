@@ -15,9 +15,7 @@ const HeroSection = () => {
         transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
         className="absolute inset-0"
       >
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
-          <source src="https://videos.pexels.com/video-files/5765973/5765973-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-        </video>
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=2560" alt="Luxury Real Estate" className="absolute inset-0 w-full h-full object-cover" />
       </motion.div>
 
       {/* Multi-layer cinematic overlay */}

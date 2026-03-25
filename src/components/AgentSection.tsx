@@ -18,9 +18,7 @@ const AgentSection = () => {
     <section id="leadership" className="relative overflow-hidden">
       {/* Video background */}
       <div className="absolute inset-0">
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover scale-105">
-          <source src="https://videos.pexels.com/video-files/7235436/7235436-uhd_2560_1440_30fps.mp4" type="video/mp4" />
-        </video>
+        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=2560" alt="Office Background" className="w-full h-full object-cover scale-105" />
         <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
       </div>
 
@@ -74,7 +72,7 @@ const AgentSection = () => {
 
               <div className="relative aspect-[3/4] rounded-2xl overflow-hidden luxury-shadow">
                 <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
+                  src="/features-1.jpg"
                   alt="Anil Kumar T - Founder & Managing Partner"
                   className="w-full h-full object-cover"
                 />
@@ -87,9 +85,6 @@ const AgentSection = () => {
                       <Star key={i} size={12} className="text-primary fill-primary" />
                     ))}
                   </div>
-                  <p className="text-[10px] sm:text-xs font-body tracking-[0.2em] uppercase text-champagne/50">
-                    ★ Replace with your photo ★
-                  </p>
                 </div>
               </div>
 
