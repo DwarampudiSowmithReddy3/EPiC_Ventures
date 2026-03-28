@@ -162,7 +162,7 @@ const AgentSection = () => {
                 {[
                   { icon: Phone, text: "+91  9946313291" },
                   { icon: Mail, text: "office@nextepic.in" },
-                  { icon: MapPin, text: "Bengaluru, Karnataka, India" },
+                  { icon: MapPin, text: "NextEPiC Ventures, Flat No. 235, Mahaveer Calyx Apartment, BTM 4th Stage, Nyanappanahalli, Behind Royal Residency Layout, Bengaluru – 560076, India" },
                 ].map(({ icon: Icon, text }) => (
                   <div key={text} className="flex items-center gap-3 sm:gap-4 group cursor-pointer">
                     <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl border border-primary/15 flex items-center justify-center shrink-0 group-hover:border-primary/40 group-hover:bg-primary/5 transition-all duration-500">

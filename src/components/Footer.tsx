@@ -54,7 +54,7 @@ const Footer = () => (
               ))}
             </div>
             <p className="text-muted-foreground text-[10px] sm:text-xs font-body">
-              Bengaluru, Karnataka, India
+              NextEPiC Ventures, Flat No. 235, Mahaveer Calyx Apartment, BTM 4th Stage, Nyanappanahalli, Behind Royal Residency Layout, Bengaluru – 560076, India
             </p>
           </div>
         </div>

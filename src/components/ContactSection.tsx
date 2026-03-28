@@ -53,8 +53,8 @@ const ContactSection = () => {
 
             <div className="space-y-5 sm:space-y-6">
               {[
-                { icon: Mail, label: "Email", value: "info@nextepicventures.com" },
-                { icon: Phone, label: "Call Us", value: "+91 XXXX XXX XXX" },
+                { icon: Mail, label: "Email", value: "office@nextepic.in" },
+                { icon: Phone, label: "Call Us", value: "+91  9946313291" },
                 { icon: MapPin, label: "Office", value: "NextEPiC Ventures, Flat No. 235, Mahaveer Calyx Apartment, BTM 4th Stage, Nyanappanahalli, Behind Royal Residency Layout, Bengaluru – 560076, India" },
               ].map(({ icon: Icon, label, value }, i) => (
                 <motion.div
