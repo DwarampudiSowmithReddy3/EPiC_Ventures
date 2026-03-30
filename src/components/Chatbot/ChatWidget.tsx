@@ -13,7 +13,7 @@ export default function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "model",
-      text: "Hi there! I'm the NextEPiC virtual assistant. How can I help you today?",
+      text: "Welcome to NextEPiC Ventures. To provide you with personalized premium real estate advisory, may I start with your Name and Email address for a private consultation?",
     },
   ]);
   const [input, setInput] = useState("");
