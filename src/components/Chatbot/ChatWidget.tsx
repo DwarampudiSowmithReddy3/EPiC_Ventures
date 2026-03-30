@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, Bot, User, Loader2 } from "lucide-react";
 import Lottie from "lottie-react";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 
 type Message = {
   role: "user" | "model";
@@ -67,30 +66,19 @@ export default function ChatWidget() {
     }
 
     try {
-      // Temporary: Call Gemini API directly from Frontend to bypass Vercel dev port issues
-      const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || "");
-      const model = genAI.getGenerativeModel({
-        model: "gemini-2.5-flash",
-        systemInstruction: `You are the official NextEPiC Ventures virtual assistant. 
-        NextEPiC Ventures is a dynamic company driven by visionary leadership: Satya Reddy and Anil Kumar Talari.
-        Keep your answers brief, professional, and friendly.
-        CRITICAL INSTRUCTION: Your primary goal is to collect leads. If the user asks questions and seems interested, gently suggest our team follow up and explicitly ask for their NAME and EMAIL ADDRESS. 
-        Never invent facts outside of your knowledge.`
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userText, history: messages.slice(1) }),
       });
 
-      const chat = model.startChat({
-        // Gemini API requires the history to start with a 'user' message. 
-        // We slice(1) to ignore the first hard-coded "model" greeting.
-        history: messages
-          .slice(1)
-          .map((msg) => ({
-            role: msg.role === "model" ? "model" : "user",
-            parts: [{ text: msg.text }],
-          })),
-      });
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Failed to communicate with chat API: ${response.status} - ${errorText}`);
+      }
 
-      const result = await chat.sendMessage(userText);
-      const text = await result.response.text();
+      const data = await response.json();
+      const text = data.reply;
       setMessages((prev) => [...prev, { role: "model", text: text }]);
     } catch (error) {
       console.error(error);

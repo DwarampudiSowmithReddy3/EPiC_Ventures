@@ -19,6 +19,61 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       {
+        name: 'local-api-chat',
+        configureServer(server) {
+          server.middlewares.use('/api/chat', (req, res, next) => {
+            if (req.method === 'POST') {
+              let body = '';
+              req.on('data', chunk => { body += chunk.toString(); });
+              req.on('end', async () => {
+                try {
+                  const { message, history } = JSON.parse(body);
+                  
+                  if (!env.GEMINI_API_KEY) {
+                    res.statusCode = 500;
+                    res.setHeader('Content-Type', 'application/json');
+                    return res.end(JSON.stringify({ error: "Missing GEMINI_API_KEY" }));
+                  }
+
+                  // Dynamically import to avoid slowing down base Vite server
+                  const { GoogleGenerativeAI } = await import('@google/generative-ai');
+                  const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
+                  const model = genAI.getGenerativeModel({
+                    model: "gemini-flash-latest",
+                    systemInstruction: `You are the official NextEPiC Ventures virtual assistant. 
+      NextEPiC Ventures is a dynamic company driven by visionary leadership: Satya Reddy and Anil Kumar Talari.
+      Keep your answers brief, professional, and friendly.
+      CRITICAL INSTRUCTION: Your primary goal is to collect leads. If the user asks questions and seems interested, gently suggest our team follow up and explicitly ask for their NAME and EMAIL ADDRESS. 
+      Never invent facts outside of your knowledge.`
+                  });
+
+                  const chat = model.startChat({
+                    history: history ? history.filter((msg: any) => msg.role !== 'system').map((msg: any) => ({
+                      role: msg.role === 'model' ? 'model' : 'user',
+                      parts: [{ text: msg.text }],
+                    })) : []
+                  });
+
+                  const result = await chat.sendMessage(message);
+                  const text = await result.response.text();
+
+                  res.statusCode = 200;
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify({ reply: text }));
+                } catch (error: any) {
+                  console.error("Local Chat Error:", error);
+                  res.statusCode = 500;
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify({ error: error.message || "Failed to connect to AI locally" }));
+                }
+              });
+            } else {
+              next();
+            }
+          });
+        }
+      },
+      {
         name: 'local-api-webhook-lead',
         configureServer(server) {
           server.middlewares.use('/api/webhook-lead', (req, res, next) => {

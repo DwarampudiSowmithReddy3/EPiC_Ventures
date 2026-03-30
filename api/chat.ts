@@ -17,7 +17,7 @@ export default async function handler(req: Request) {
 
     // Configure the AI Model
     const model = genAI.getGenerativeModel({
-      model: "gemini-2.5-flash",
+      model: "gemini-flash-latest",
       systemInstruction: `You are the official NextEPiC Ventures virtual assistant. 
       NextEPiC Ventures is a dynamic company driven by visionary leadership: Satya Reddy and Anil Kumar Talari.
       Keep your answers brief, professional, and friendly.
@@ -43,10 +43,11 @@ export default async function handler(req: Request) {
       headers: { 'Content-Type': 'application/json' },
       status: 200,
     });
-  } catch (error) {
-    console.error("Gemini API Error:", error);
+  } catch (error: any) {
+    console.error("Gemini API Error Detail:", error);
+    const errorMessage = error?.message || "Internal Server Error";
     return new Response(
-      JSON.stringify({ error: "Sorry, I am having trouble connecting to my brain right now." }),
+      JSON.stringify({ error: errorMessage }),
       { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
