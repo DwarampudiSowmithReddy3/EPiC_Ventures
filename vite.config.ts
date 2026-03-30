@@ -104,7 +104,7 @@ export default defineConfig(({ mode }) => {
               req.on('end', async () => {
                 try {
                   const payload = JSON.parse(body);
-                  const { email, conversation } = payload;
+                  const { name, email, phone, propertyType, message, source } = payload;
 
                   if (!env.GOOGLE_SHEETS_CREDENTIALS) {
                     console.error("Missing Google Sheets Config in .env");
@@ -132,7 +132,15 @@ export default defineConfig(({ mode }) => {
                     range: "Sheet1!A1",
                     valueInputOption: "USER_ENTERED",
                     requestBody: {
-                      values: [[new Date().toLocaleString(), email, conversation || "Local Dev Lead"]],
+                      values: [[
+                        new Date().toLocaleString(), 
+                        name || "N/A", 
+                        email || "N/A", 
+                        phone || "N/A", 
+                        propertyType || "N/A", 
+                        message || "N/A", 
+                        source || "Local-Dev"
+                      ]],
                     },
                   });
 

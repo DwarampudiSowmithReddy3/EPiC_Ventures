@@ -19,6 +19,7 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [lottieData, setLottieData] = useState<any>(null);
+  const [hasSentLead, setHasSentLead] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Load Lottie animation from public folder
@@ -49,20 +50,43 @@ export default function ChatWidget() {
     setInput("");
     setIsLoading(true);
 
-    // Email Detection Regex
-    const emailMatch = userText.match(/\S+@\S+\.\S+/);
-    if (emailMatch) {
+    // Email Detection Logic
+    const emailMatch = userText.match(/[\w.-]+@[\w.-]+\.\w+/);
+    if (emailMatch && !hasSentLead) {
       const email = emailMatch[0];
+      
+      // Extraction cleanup:
+      // If user typed "Name, Email" or "Name Email", try to pull the name part
+      let name = "";
+      const segments = userText.split(/[,|\s]+/).map(s => s.trim()).filter(Boolean);
+      const emailIndex = segments.findIndex(s => s.includes("@"));
+      
+      if (emailIndex !== -1) {
+        // Take segments before the email as the name (up to 2 words usually)
+        name = segments.slice(0, emailIndex).join(" ");
+      }
+      
+      // If name is empty, try looking after the email if it's there
+      if (!name && emailIndex !== -1 && segments.length > emailIndex + 1) {
+        name = segments.slice(emailIndex + 1).join(" ");
+      }
+
+      setHasSentLead(true);
+
       // Quietly fire off the lead to the webhook API
       fetch("/api/webhook-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
+          name: name.trim() || "User",
           email: email, 
+          phone: "N/A",
+          propertyType: "N/A",
           // Join the last few messages as a summary of what they wanted
-          conversation: messages.slice(-4).map(m => `${m.role}: ${m.text}`).join(" | ") + ` | user: ${userText}`
+          message: messages.slice(-4).map(m => `${m.role}: ${m.text}`).join(" | ") + ` | user: ${userText}`,
+          source: "Chatbot"
         }),
-      }).catch(err => console.log("Webhook test failed silently:", err));
+      }).catch(err => console.log("Webhook failed silently:", err));
     }
 
     try {

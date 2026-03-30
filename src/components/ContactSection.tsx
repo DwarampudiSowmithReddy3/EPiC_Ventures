@@ -8,6 +8,49 @@ const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [propertyType, setPropertyType] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (status === "sending") return;
+    
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/webhook-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: fullName,
+          email: email,
+          phone: phone,
+          propertyType: propertyType || "N/A",
+          message: message,
+          source: "Contact Form"
+        }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setTimeout(() => {
+          setFullName("");
+          setEmail("");
+          setPhone("");
+          setPropertyType("");
+          setMessage("");
+          setStatus("idle");
+        }, 3000);
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+    }
+  };
 
   return (
     <section id="contact" className="relative overflow-hidden">
@@ -82,63 +125,84 @@ const ContactSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, delay: 0.4 }}
             className="lg:col-span-3 glass-card rounded-3xl p-6 sm:p-8 md:p-12 space-y-4 sm:space-y-6 border border-primary/10 hover:border-primary/20 transition-colors duration-700"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={handleSubmit}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
-              {[
-                { label: "Full Name", type: "text", placeholder: "Your Name" },
-                { label: "Email Address", type: "email", placeholder: "you@example.com" },
-              ].map((field) => (
-                <div key={field.label}>
-                  <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">{field.label}</label>
-                  <input
-                    type={field.type}
-                    placeholder={field.placeholder}
-                    className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-charcoal-light/70 transition-all duration-300"
-                  />
-                </div>
-              ))}
+              <div>
+                <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Full Name</label>
+                <input
+                  type="text"
+                  required
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  placeholder="Your Name"
+                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-charcoal-light/70 transition-all duration-300"
+                />
+              </div>
+              <div>
+                <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Email Address</label>
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-charcoal-light/70 transition-all duration-300"
+                />
+              </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
               <div>
                 <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Phone</label>
                 <input
                   type="tel"
+                  required
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                   placeholder="+91 XXXX XXX XXX"
                   className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-charcoal-light/70 transition-all duration-300"
                 />
               </div>
               <div>
                 <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Property Type</label>
-                <select
-                  value={propertyType}
-                  onChange={(e) => setPropertyType(e.target.value)}
-                  className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground focus:outline-none focus:border-primary/40 transition-all duration-300 appearance-none"
-                >
-                  <option value="" className="bg-card">Select Type</option>
-                  <option value="residential" className="bg-card">Residential</option>
-                  <option value="commercial" className="bg-card">Commercial</option>
-                  <option value="industrial" className="bg-card">Industrial</option>
-                  <option value="nri" className="bg-card">NRI Services</option>
-                </select>
+                <div className="relative">
+                  <select
+                    value={propertyType}
+                    onChange={(e) => setPropertyType(e.target.value)}
+                    className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground focus:outline-none focus:border-primary/40 transition-all duration-300 appearance-none pr-10"
+                  >
+                    <option value="" className="bg-card">Select Type</option>
+                    <option value="residential" className="bg-card">Residential</option>
+                    <option value="commercial" className="bg-card">Commercial</option>
+                    <option value="industrial" className="bg-card">Industrial</option>
+                    <option value="nri" className="bg-card">NRI Services</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                  </div>
+                </div>
               </div>
             </div>
             <div>
               <label className="text-[10px] font-body tracking-[0.25em] uppercase text-muted-foreground mb-2 block">Your Message</label>
               <textarea
                 rows={4}
+                required
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 placeholder="How can we assist you with your next premium real estate move?"
                 className="w-full bg-charcoal-light/50 border border-border rounded-xl px-4 sm:px-5 py-3.5 sm:py-4 font-body text-sm text-foreground placeholder:text-muted-foreground/30 focus:outline-none focus:border-primary/40 focus:bg-charcoal-light/70 transition-all duration-300 resize-none"
               />
             </div>
             <button
               type="submit"
+              disabled={status === "sending"}
               className="group w-full relative overflow-hidden font-body font-semibold tracking-[0.15em] sm:tracking-[0.2em] uppercase text-xs sm:text-sm py-4 sm:py-5 rounded-xl transition-all duration-700 flex items-center justify-center gap-2 sm:gap-3"
             >
               <div className="absolute inset-0 shimmer-gold" />
               <span className="relative text-primary-foreground flex items-center gap-2">
-                Schedule a Private Consultation
-                <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                {status === "sending" ? "Sending..." : status === "success" ? "Consultation Scheduled!" : status === "error" ? "Error Sending" : "Schedule a Private Consultation"}
+                {status === "idle" && <ArrowUpRight size={14} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />}
               </span>
             </button>
           </motion.form>
