@@ -1,12 +1,12 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import AboutSection from "@/components/AboutSection";
-import ServicesSection from "@/components/ServicesSection";
-import WhyChooseUsSection from "@/components/WhyChooseUsSection";
-import AgentSection from "@/components/AgentSection";
-import ContactSection from "@/components/ContactSection";
+import Navbar from "@/components/layout/Navbar";
+import HeroSection from "@/components/sections/HeroSection";
+import AboutSection from "@/components/sections/AboutSection";
+import ServicesSection from "@/components/sections/ServicesSection";
+import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
+import AgentSection from "@/components/sections/AgentSection";
+import ContactSection from "@/components/sections/ContactSection";
 import LuxuryMarquee from "@/components/LuxuryMarquee";
-import Footer from "@/components/Footer";
+import Footer from "@/components/layout/Footer";
 
 const Index = () => (
   <div className="bg-background min-h-screen overflow-x-hidden">

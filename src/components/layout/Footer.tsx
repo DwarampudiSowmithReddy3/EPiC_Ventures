@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import OrnamentalDivider from "./OrnamentalDivider";
+import OrnamentalDivider from "@/components/OrnamentalDivider";
 
 const Footer = () => (
   <footer className="relative overflow-hidden">

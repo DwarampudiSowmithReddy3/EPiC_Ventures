@@ -10,16 +10,34 @@ type Message = {
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "model",
-      text: "Welcome to NextEPiC Ventures. To provide you with personalized premium real estate advisory, may I start with your Name and Email address for a private consultation?",
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>(() => {
+    // Initializer function for state to prevent SSR issues or unnecessary re-renders
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("nextepic_chat_messages");
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          console.error("Failed to parse saved messages", e);
+        }
+      }
+    }
+    return [
+      {
+        role: "model",
+        text: "Welcome to NextEPiC Ventures. To provide you with personalized premium real estate advisory, may I start with your Name and Email address for a private consultation?",
+      },
+    ];
+  });
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [lottieData, setLottieData] = useState<any>(null);
-  const [hasSentLead, setHasSentLead] = useState(false);
+  const [hasSentLead, setHasSentLead] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("nextepic_chat_has_sent_lead") === "true";
+    }
+    return false;
+  });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Load Lottie animation from public folder
@@ -32,6 +50,19 @@ export default function ChatWidget() {
       .then((data) => setLottieData(data))
       .catch(() => console.log("Lottie animation not found yet."));
   }, []);
+
+  // Persist state to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("nextepic_chat_messages", JSON.stringify(messages));
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("nextepic_chat_has_sent_lead", hasSentLead.toString());
+    }
+  }, [hasSentLead]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

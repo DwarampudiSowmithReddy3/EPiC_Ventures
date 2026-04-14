@@ -1,8 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Crown, Sparkles, Scale, Globe, Target } from "lucide-react";
-import SectionLabel from "./SectionLabel";
-import OrnamentalDivider from "./OrnamentalDivider";
+import SectionLabel from "@/components/SectionLabel";
+import OrnamentalDivider from "@/components/OrnamentalDivider";
 
 const reasons = [
   {

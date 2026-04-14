@@ -1,14 +1,14 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
-import { Award, Building2, Users, TrendingUp } from "lucide-react";
-import SectionLabel from "./SectionLabel";
-import OrnamentalDivider from "./OrnamentalDivider";
+import { Award, Building2, Users, MapPin } from "lucide-react";
+import SectionLabel from "@/components/SectionLabel";
+import OrnamentalDivider from "@/components/OrnamentalDivider";
 
 const stats = [
-  { icon: Building2, value: 500, suffix: "+", label: "Properties Handled" },
-  { icon: Users, value: 1200, suffix: "+", label: "Happy Clients" },
+  { icon: Building2, value: 1000, suffix: "+", label: "Properties Available" },
+  { icon: Users, textValue: "one to one", label: "client relationship" },
   { icon: Award, value: 15, suffix: "+", label: "Years Experience" },
-  { icon: TrendingUp, value: 2, prefix: "₹", suffix: "B+", label: "Total Transactions" },
+  { icon: MapPin, value: 500, suffix: "+", label: "Choice of Locations" },
 ];
 
 const AnimatedCounter = ({ value, prefix = "", suffix = "", isInView }: { value: number; prefix?: string; suffix?: string; isInView: boolean }) => {
@@ -107,8 +107,16 @@ const AboutSection = () => {
                 <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl bg-primary/5 border border-primary/15 flex items-center justify-center mx-auto mb-3 sm:mb-5 group-hover:bg-primary/10 group-hover:border-primary/30 group-hover:scale-110 transition-all duration-500">
                   <stat.icon className="w-4 h-4 sm:w-6 sm:h-6 text-primary" />
                 </div>
-                <p className="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-gradient-gold">
-                  <AnimatedCounter value={stat.value} prefix={stat.prefix} suffix={stat.suffix} isInView={isInView} />
+                <p className={`font-display font-bold text-gradient-gold ${
+                  stat.textValue 
+                    ? "text-lg sm:text-xl md:text-2xl" 
+                    : "text-2xl sm:text-3xl md:text-4xl"
+                }`}>
+                  {stat.textValue ? (
+                    <span className="whitespace-nowrap">{stat.textValue}</span>
+                  ) : (
+                    <AnimatedCounter value={stat.value || 0} prefix={stat.prefix} suffix={stat.suffix} isInView={isInView} />
+                  )}
                 </p>
                 <p className="text-muted-foreground text-[9px] sm:text-xs font-body mt-2 tracking-widest uppercase">{stat.label}</p>
               </motion.div>

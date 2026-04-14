@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronDown, Play } from "lucide-react";
-import FloatingParticles from "./FloatingParticles";
+import FloatingParticles from "@/components/FloatingParticles";
 
 const HeroSection = () => {
   const scrollToAbout = () => {

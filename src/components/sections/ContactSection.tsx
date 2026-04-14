@@ -1,8 +1,8 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Send, Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
-import SectionLabel from "./SectionLabel";
-import OrnamentalDivider from "./OrnamentalDivider";
+import SectionLabel from "@/components/SectionLabel";
+import OrnamentalDivider from "@/components/OrnamentalDivider";
 
 const ContactSection = () => {
   const ref = useRef(null);
