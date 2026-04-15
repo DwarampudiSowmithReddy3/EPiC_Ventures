@@ -8,7 +8,7 @@ const stats = [
   { icon: Building2, value: 1000, suffix: "+", label: "Properties Available" },
   { icon: Users, textValue: "one to one", label: "client relationship" },
   { icon: Award, value: 15, suffix: "+", label: "Years Experience" },
-  { icon: MapPin, value: 500, suffix: "+", label: "Choice of Locations" },
+  { icon: MapPin, value: 25, suffix: "+", label: "Choice of Locations" },
 ];
 
 const AnimatedCounter = ({ value, prefix = "", suffix = "", isInView }: { value: number; prefix?: string; suffix?: string; isInView: boolean }) => {
