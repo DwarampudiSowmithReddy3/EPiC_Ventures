@@ -1,17 +1,31 @@
 // This endpoint will be triggered either by the frontend or by Gemini directly via function calling 
-// when it detects an email. For now, it's a skeleton ready for the Resend API implementation!
-
-import { Resend } from 'resend';
-
 import { google } from "googleapis";
 
-export default async function handler(req: Request) {
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+// Using standard Node.js request/response for Vercel Serverless Functions
+export default async function handler(req: any, res: any) {
+  // Set CORS headers for all responses
+  Object.keys(corsHeaders).forEach(key => {
+    res.setHeader(key, (corsHeaders as any)[key]);
+  });
+
+  // Handle CORS preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+    return res.status(405).send('Method Not Allowed');
   }
 
   try {
-    const { name, email, phone, propertyType, message, source } = await req.json();
+    // Vercel automatically parses JSON bodies in Node.js runtime
+    const { name, email, phone, propertyType, message, source } = req.body || {};
 
     // 1. Setup Google Sheets Authentication
     if (!process.env.GOOGLE_SHEETS_CREDENTIALS) {
@@ -26,6 +40,7 @@ export default async function handler(req: Request) {
       key: privateKey,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"]
     });
+    
     await jwtClient.authorize();
 
     const sheets = google.sheets({ version: "v4", auth: jwtClient });
@@ -49,12 +64,9 @@ export default async function handler(req: Request) {
       },
     });
 
-    return new Response(JSON.stringify({ success: true }), {
-      headers: { 'Content-Type': 'application/json' },
-      status: 200,
-    });
-  } catch (error) {
+    return res.status(200).json({ success: true });
+  } catch (error: any) {
     console.error("Webhook Error:", error);
-    return new Response(JSON.stringify({ error: "Failed to save lead" }), { status: 500 });
+    return res.status(500).json({ error: error?.message || "Failed to save lead" });
   }
 }
