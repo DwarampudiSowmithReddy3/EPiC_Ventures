@@ -3,17 +3,30 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 // Ensure the API key is strictly required to run
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || '');
 
-export const config = {
-  runtime: 'edge', // Edge functions are faster and completely free
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-export default async function handler(req: Request) {
+// Using standard Node.js request/response
+export default async function handler(req: any, res: any) {
+  // Set CORS headers for all responses universally
+  Object.keys(corsHeaders).forEach(key => {
+    res.setHeader(key, (corsHeaders as any)[key]);
+  });
+
+  // Handle CORS preflight request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method !== 'POST') {
-    return new Response('Method Not Allowed', { status: 405 });
+    return res.status(405).send('Method Not Allowed');
   }
 
   try {
-    const { message, history } = await req.json();
+    const { message, history } = req.body || {};
 
     // Configure the AI Model
     const model = genAI.getGenerativeModel({
@@ -46,7 +59,7 @@ export default async function handler(req: Request) {
 
     // Format the previous chat history so the AI has context
     const chat = model.startChat({
-      history: history
+      history: (history || [])
         .filter((msg: any) => msg.role !== 'system') // Filter out any internal errors
         .map((msg: any) => ({
           role: msg.role === 'model' ? 'model' : 'user',
@@ -58,16 +71,10 @@ export default async function handler(req: Request) {
     const result = await chat.sendMessage(message);
     const text = await result.response.text();
 
-    return new Response(JSON.stringify({ reply: text }), {
-      headers: { 'Content-Type': 'application/json' },
-      status: 200,
-    });
+    return res.status(200).json({ reply: text });
   } catch (error: any) {
     console.error("Gemini API Error Detail:", error);
     const errorMessage = error?.message || "Internal Server Error";
-    return new Response(
-      JSON.stringify({ error: errorMessage }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    return res.status(500).json({ error: errorMessage });
   }
 }
